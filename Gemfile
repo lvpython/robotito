@@ -1,5 +1,5 @@
 source "http://rubygems.org"
 
-gem 'xmpp4r-simple'
+gem 'xmpp4r'
 gem 'session'
-gem 'daemons'
+gem 'god'

@@ -7,7 +7,7 @@ class JabberShell
       self.messenger = Jabber::Simple.new({:login => BOT_LOGIN, :password => BOT_PASSWORD, :server =>BOT_JABBER_HOST_SERVER, :port => BOT_JABBER_SERVER_PORT})
       puts "Connected"
     rescue Exception => e
-      puts "Ooops - Couldn't connect"
+      puts "Ooops - Couldn't connect, msg: #{e.message}"
     end
   end
   
@@ -22,26 +22,32 @@ class JabberShell
   
   def processing_loop
     @sh = {}
-    power_on
-
-    while powered_on?
+    @count = 0
+    loop do
       messenger.received_messages do |message|
         process_message message
       end
       sleep 1
+      break unless keep_connection?
     end
   end
-  
-  def powered_on?
-    @powered_on
-  end
-  
-  def power_on
-    @powered_on = true
-  end
-  
-  def power_off
-    @powered_on = false
+
+  #each 10 second detect one time connection
+  #lost connection the instance will quit
+  def keep_connection?
+    @count+=1
+    if @count > 10 
+      if messenger.connected?
+        messenger.status(:away, "I'm busy")
+        puts "keep connection"
+        @count = 0
+        true
+      else
+        puts "lost connection"
+        return false
+      end
+    end
+    true
   end
   
   def process_message(message)

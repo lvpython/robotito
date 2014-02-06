@@ -1,18 +1,16 @@
 GEM
   remote: http://rubygems.org/
   specs:
-    daemons (1.1.2)
     fattr (2.2.0)
+    god (0.13.3)
     session (3.1.0)
       fattr
-    xmpp4r (0.5)
-    xmpp4r-simple (0.8.8)
-      xmpp4r (>= 0.3.2)
+    xmpp4r (0.5.5)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  daemons
+  god
   session
-  xmpp4r-simple
+  xmpp4r

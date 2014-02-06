@@ -11,7 +11,11 @@ Sometimes you cannot reach an ssh ip:port of an host by a lot of reasons:
 * annoying administrators
   
 Robo-TiTO allows you circumvent these problems and execute commands remotelly on your server.
- 
+
+## Improvement
+  ping-pong with xmpp server, network broken will quit instance. god will re-up it.
+  make it compactible with ruby 1.9+
+
 ## Description
 This is a light-weight bot connecting through XMPP (eg.: GTalk) that allows you run shell command remotely.
 Robo-TiTO will not open a port to be accessed, instead of that, it will connect to a jabber service.
@@ -32,11 +36,11 @@ bundle install
 cp config/credentials.rb.example credentials.rb
 vim config/credentials.rb
 
-# start with
-./jabbershd start
+# start with god
+god -c robotito.god
 
 # check additional available options with
-./jabbershd -h
+god status robotito
 
 ```
 
